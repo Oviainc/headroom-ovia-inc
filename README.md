@@ -1,3 +1,26 @@
+![Ovia Inc — Headroom hero image, from the upstream repository's own assets](.github/assets/hero.svg)
+
+## Ovia Inc — Headroom fork
+
+This repository is a fork of [headroomlabs-ai/headroom](https://github.com/headroomlabs-ai/headroom), held in the Ovia Inc collection for evaluation. Modifications by Ovia Inc: this header (Ovia section, story, and reference note), added November 2026 as part of the import pass that widened the collection beyond the weekly digest. Upstream code and content are otherwise unchanged from the fork point, except where a later commit says so. All credit for the project belongs to the upstream authors and contributors; the licence is Apache-2.0, as recorded in the upstream repository.
+
+### What this is
+
+Headroom is a context compression layer for AI agents. It compresses tool outputs, logs, files, and RAG chunks before they reach the LLM, so the model receives fewer tokens carrying the same signal. The project's own hero example shows a 55,957-token agent prompt compressed to the 24,340 tokens actually sent to the model — with a FATAL log line at item 67 surviving byte for byte, which is the whole point: compression that knows what must not be lost.
+
+### Story
+
+Every agent workflow pays for context twice — once in money, once in attention. Tool outputs, logs, and retrieved chunks arrive verbose, and the model reads all of it whether or not the bulk matters. Headroom sits in that path as a dedicated layer rather than another prompt instruction asking the model to be brief. The shelf fit is direct: the collection's own token_reducer works on reducing what a prompt carries, and the context-engineering shelf already holds memory and retrieval projects that decide what enters context at all. Headroom decides what the entering material looks like once compressed. We forked headroomlabs-ai/headroom in November 2026 to evaluate that layer against the studio's own reduction work, on real agent traffic rather than toy prompts.
+
+### What we evaluate
+
+- Compression quality on tool outputs and logs: what survives, what is dropped, and whether the survival choices match what an operator would choose.
+- The byte-for-byte preservation behaviour on critical lines — errors, verdicts, identifiers — under aggressive settings.
+- Measured token savings on representative agent sessions, against the savings the project's own examples report.
+- Where the layer belongs in a stack that already includes memory and retrieval: before, after, or instead of prompt-side reduction.
+
+---
+
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/headroomlabs-ai/headroom/main/.github/assets/hero.svg" alt="Headroom — the context compression layer for AI agents. A 55,957 token agent prompt compresses to the 24,340 tokens actually sent to the model, and the FATAL line at item 67 survives byte for byte." width="880">
